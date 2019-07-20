@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package com.experiment.grpc;
+option java_multiple_files = true;
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+message TestConfig {
+    enum Trust {
+        UNKNOWN = 0;
+        PARTIAL = 1;
+        FULL = 2;
+    }
+
+    bool flag_enabled = 1;
+    Trust trust_level = 2;
+    int32 count = 3;
+}
+
+message TestCreateOrUpdateRequest {
+    string key = 1;
+    string value = 2;
+
+}
+
+message TestCreateResponse {
+    string msg = 1;
+}
+
+
+service TestService {
+    rpc CreateOrUpdate (TestCreateOrUpdateRequest) returns (TestCreateResponse) {
+    }
+}
